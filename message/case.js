@@ -2234,27 +2234,23 @@ db.data.users[sender].limit -= 1 // -1 limit
 }
 break
 case  'ig': 
-    case 'instagram':{
-      try{
-    if (!q) return setReply (`Linknya?\nContoh: ${prefix + command} https://www.instagram.com/p/CKXZ1Z1JZK/`)
+case 'ig': case 'instagram' :{
+                if (!q) return setReply("Link?")
     sendSticker(stikot)
-    let res = await fetchJson (`https://skizo.tech/api/igdl?url=${q}&apikey=${api.ehz}`)
-    for (let i of res.media) {
-    await sleep (20)
-    ehz.sendFile(from, i,'ig.mp4', `*INSTAGRAM DOWNLOADER*\n\n${res.caption}`, m)
-    }   
-    } catch (e) {
-    let res = await instagramdl (q)
-        for (let i of data) {
-                  if (i.type === "video") {
-                    ehz.sendMessage(from, { caption: "*INSTAGRAM DOWNLOADER*", video: { url: i.url } }, { quoted: m });
-                  } else if (i.type === "image") {
-                    ehz.sendMessage(from, { caption: "*INSTAGRAM DOWNLOADER*", image: { url: i.url } }, { quoted: m});
-                  }
-        }
-      }
-    }
-    break
+                let ag = await fetchJson(`https://api.lolhuman.xyz/api/instagram?apikey=${api.Lol}&url=${q}`)
+                for (var i = 0; i < ag.result.length; i++) {
+                    let pap = ag.result[i].includes('.jpg') ? 'image' : 'video'
+                    await ehz.sendMessage(m.chat, {
+                        [pap]: {
+                            url: ag.result[i]
+                        },
+                        caption: 'DOWNLOADER INSTAGRAM'
+                    }, {
+                        quoted: m
+                    })
+                }
+            }
+            break
 case 'wattpad': {
 if (!isGroup) return onlyGroup()
 if (!q) return setReply(`Example : ${prefix + command} selingkuh`)
